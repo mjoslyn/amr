@@ -1,0 +1,2 @@
+<?php defined('WPINC') or die ?><?php
+echo '<a href="https://www.bbb.org/us/ny/east-otto/profile/campgrounds/allegany-mountain-resort-0041-235969684/#sealclick" target="_blank" rel="nofollow"><img src="https://seal-upstateny.bbb.org/seals/blue-seal-293-61-bbb-235969684.png" style="border: 0;" alt="Allegany Mountain Resort BBB Business Review" /></a>';
