@@ -57,14 +57,14 @@
       <div class="step-num-ring">2</div>
       <div class="step-text">
         <h3>Laurie Schedules Your Preview</h3>
-        <p>Laurie will call or text you to answer questions and book your personal park tour.</p>
+        <p>Laurie will call or text you to answer questions and book your personal park preview.</p>
       </div>
     </div>
     <div class="step-card">
       <div class="step-num-ring">3</div>
       <div class="step-text">
         <h3>Preview the Park, Then Camp</h3>
-        <p>After your guided tour, claim your pass and camp up to 4 days at just $10/day with full resort access.</p>
+        <p>After your park preview, claim your pass and camp up to 4 days at just $10/day with full resort access.</p>
       </div>
     </div>
   </div>
