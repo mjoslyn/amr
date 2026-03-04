@@ -1,3 +1,5 @@
+.htaccess
+wp-config-docker.php
 *~
 .DS_Store
 .svn
