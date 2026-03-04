@@ -34,7 +34,6 @@ wp-content/mu-plugins/*
 wp-content/breeze-config/*
 wp-content/themes/hello-elementor/*
 wp-content/themes/hello-elementor-child/vendor/*
-wp-content/themes/hello-elementor-child/dist/*
 wp-content/upgrade
 wp-content/upgrade-temp-backup
 
