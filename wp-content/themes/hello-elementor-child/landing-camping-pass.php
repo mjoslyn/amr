@@ -87,6 +87,9 @@
     <div class="amenity-tile"><div class="icon">&#x1F354;</div><h4>Poolside Cafe</h4></div>
     <div class="amenity-tile"><div class="icon">&#x1F415;</div><h4>Dog Park</h4></div>
   </div>
+  <div class="amenities-cta reveal">
+    <a href="#signup" class="hero-cta">Get Started Today</a>
+  </div>
 </section>
 
 <!-- PHOTO GALLERY -->

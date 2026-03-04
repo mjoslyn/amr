@@ -348,6 +348,10 @@ body.landing-camping-pass .topbar {
   color: var(--blue-deep);
 }
 
+.amenities-cta {
+  margin-top: 2.5rem;
+}
+
 /* ── PHOTO GALLERY ── */
 .gallery {
   padding: 5rem 1.5rem;
