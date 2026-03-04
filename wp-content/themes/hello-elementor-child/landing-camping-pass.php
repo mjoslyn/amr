@@ -21,7 +21,7 @@
 <section class="hero">
   <div class="hero-text">
     <div class="hero-badge">Allegany Mountain Resort at Rainbow Lake</div>
-    <h1>Camp 4 Days for Just $10/Day <span class="highlight">After Your Park Preview</span></h1>
+    <h1>Camp 4 Days for Just $10/Day</h1>
     <p class="hero-sub">See the resort for yourself, then stay and enjoy it. Full access to pools, kayaks, mini golf, organized events, and more for your whole family.</p>
     <div class="hero-meta">
       <div class="hero-price-inline">$10<span class="per">/day &middot; up to 4 nights</span></div>
@@ -163,7 +163,6 @@
   </div>
   <div class="form-wrapper">
     <?php echo do_shortcode('[gravityform id="27" title="false" description="false" ajax="true"]'); ?>
-    <p class="form-legal">Your privacy is protected. Your information is for our exclusive use only and will NOT be sold or shared with any outside parties. By submitting this form, I give my electronic signature and consent that Allegany Mountain Resort may contact me concerning this invitation by phone, email, text message, auto dialer, or prerecorded message. Msg. &amp; data rates may apply. Some restrictions apply.</p>
   </div>
 </section>
 
@@ -189,11 +188,11 @@
     </div>
     <div class="faq-item reveal">
       <button class="faq-q">Do I need an RV to visit?<span class="chevron">&#9660;</span></button>
-      <div class="faq-a"><div class="faq-a-inner">Not at all. While many guests bring their own RV or camper, the resort also offers affordable cabin accommodations. Contact Laurie at (716) 264-8429 for details.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Not at all. Guests are welcome bring their own RV or tents. Contact Laurie at (716) 264-8429 for details.</div></div>
     </div>
     <div class="faq-item reveal">
       <button class="faq-q">Do I have to buy a membership?<span class="chevron">&#9660;</span></button>
-      <div class="faq-a"><div class="faq-a-inner">Absolutely not. Many families do choose to become members after experiencing the resort, but there's zero obligation. Think of it as a try-before-you-decide opportunity.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Absolutely not. Many families do choose to become members after experiencing the resort, but there's zero obligation.</div></div>
     </div>
   </div>
 </section>
