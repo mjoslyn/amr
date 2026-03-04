@@ -9,10 +9,11 @@
 #   --local-file <path>   Use a local SQL file instead of pulling from production
 #   --config-only         Only sync WordPress config (security keys)
 #   --pull-plugins        Only sync plugins from production
+#   --pull-themes         Only sync themes from production
 #   --pull-uploads        Only sync media/uploads from production
 #   --days <number>       Only sync uploads modified in last N days (use with --pull-uploads or --full)
 #   --fix-urls            Only fix URLs in database to point to local
-#   --full                Do everything (DB + plugins + media + URLs + keys)
+#   --full                Do everything (DB + plugins + themes + media + URLs + keys)
 #
 # Examples:
 #   ./pull-wp.sh                              # Show this help message
@@ -20,6 +21,7 @@
 #   ./pull-wp.sh --local-file backup.sql      # Import from local file
 #   ./pull-wp.sh --config-only                # Only sync security keys
 #   ./pull-wp.sh --pull-plugins               # Only sync plugins
+#   ./pull-wp.sh --pull-themes                # Only sync themes
 #   ./pull-wp.sh --pull-uploads               # Only sync media/uploads
 #   ./pull-wp.sh --pull-uploads --days 7      # Only sync uploads from last 7 days
 #   ./pull-wp.sh --fix-urls                   # Only fix URLs to local
@@ -32,6 +34,7 @@ DB_PULL=false
 LOCAL_FILE=""
 CONFIG_ONLY=false
 PULL_PLUGINS=false
+PULL_THEMES=false
 PULL_UPLOADS=false
 DAYS_BACK=""
 FIX_URLS=false
@@ -55,6 +58,10 @@ while [[ $# -gt 0 ]]; do
             PULL_PLUGINS=true
             shift
             ;;
+        --pull-themes)
+            PULL_THEMES=true
+            shift
+            ;;
         --pull-uploads)
             PULL_UPLOADS=true
             shift
@@ -71,6 +78,7 @@ while [[ $# -gt 0 ]]; do
             FULL=true
             DB_PULL=true
             PULL_PLUGINS=true
+            PULL_THEMES=true
             PULL_UPLOADS=true
             FIX_URLS=true
             shift
@@ -85,10 +93,11 @@ while [[ $# -gt 0 ]]; do
             echo "  --local-file <path>   Use a local SQL file instead of pulling from production"
             echo "  --config-only         Only sync WordPress config (security keys)"
             echo "  --pull-plugins        Only sync plugins from production"
+            echo "  --pull-themes         Only sync themes from production"
             echo "  --pull-uploads        Only sync media/uploads from production"
             echo "  --days <number>       Only sync uploads modified in last N days (use with --pull-uploads or --full)"
             echo "  --fix-urls            Only fix URLs in database to point to local"
-            echo "  --full                Do everything (DB + plugins + media + URLs + keys)"
+            echo "  --full                Do everything (DB + plugins + themes + media + URLs + keys)"
             echo ""
             echo "Examples:"
             echo "  $0                              # Show this help message"
@@ -96,6 +105,7 @@ while [[ $# -gt 0 ]]; do
             echo "  $0 --local-file backup.sql      # Import from local file"
             echo "  $0 --config-only                # Only sync security keys"
             echo "  $0 --pull-plugins               # Only sync plugins"
+            echo "  $0 --pull-themes                # Only sync themes"
             echo "  $0 --pull-uploads               # Only sync media/uploads"
             echo "  $0 --pull-uploads --days 7      # Only sync uploads from last 7 days"
             echo "  $0 --fix-urls                   # Only fix URLs to local"
@@ -106,7 +116,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Show help if no arguments provided
-if [ "$DB_PULL" = false ] && [ "$CONFIG_ONLY" = false ] && [ "$PULL_PLUGINS" = false ] && [ "$PULL_UPLOADS" = false ] && [ "$FIX_URLS" = false ] && [ "$FULL" = false ]; then
+if [ "$DB_PULL" = false ] && [ "$CONFIG_ONLY" = false ] && [ "$PULL_PLUGINS" = false ] && [ "$PULL_THEMES" = false ] && [ "$PULL_UPLOADS" = false ] && [ "$FIX_URLS" = false ] && [ "$FULL" = false ]; then
     echo "Usage: $0 [OPTIONS]"
     echo ""
     echo "Options:"
@@ -114,10 +124,11 @@ if [ "$DB_PULL" = false ] && [ "$CONFIG_ONLY" = false ] && [ "$PULL_PLUGINS" = f
     echo "  --local-file <path>   Use a local SQL file instead of pulling from production"
     echo "  --config-only         Only sync WordPress config (security keys)"
     echo "  --pull-plugins        Only sync plugins from production"
+    echo "  --pull-themes         Only sync themes from production"
     echo "  --pull-uploads        Only sync media/uploads from production"
     echo "  --days <number>       Only sync uploads modified in last N days (use with --pull-uploads or --full)"
     echo "  --fix-urls            Only fix URLs in database to point to local"
-    echo "  --full                Do everything (DB + plugins + media + URLs + keys)"
+    echo "  --full                Do everything (DB + plugins + themes + media + URLs + keys)"
     echo ""
     echo "Examples:"
     echo "  $0                              # Show this help message"
@@ -125,6 +136,7 @@ if [ "$DB_PULL" = false ] && [ "$CONFIG_ONLY" = false ] && [ "$PULL_PLUGINS" = f
     echo "  $0 --local-file backup.sql      # Import from local file"
     echo "  $0 --config-only                # Only sync security keys"
     echo "  $0 --pull-plugins               # Only sync plugins"
+    echo "  $0 --pull-themes                # Only sync themes"
     echo "  $0 --pull-uploads               # Only sync media/uploads"
     echo "  $0 --pull-uploads --days 7      # Only sync uploads from last 7 days"
     echo "  $0 --fix-urls                   # Only fix URLs to local"
@@ -162,7 +174,7 @@ START_TIME=$(date +%s)
 
 if [ "$FULL" = true ]; then
     echo -e "${YELLOW}======================================${NC}"
-    echo -e "${YELLOW}Full Sync Script Started (DB + Plugins + Media + URLs)${NC}"
+    echo -e "${YELLOW}Full Sync Script Started (DB + Plugins + Themes + Media + URLs)${NC}"
     echo -e "${YELLOW}======================================${NC}"
 elif [ "$DB_PULL" = true ]; then
     echo -e "${YELLOW}======================================${NC}"
@@ -179,6 +191,10 @@ elif [ "$FIX_URLS" = true ]; then
 elif [ "$PULL_PLUGINS" = true ]; then
     echo -e "${YELLOW}======================================${NC}"
     echo -e "${YELLOW}Plugin Sync Script Started${NC}"
+    echo -e "${YELLOW}======================================${NC}"
+elif [ "$PULL_THEMES" = true ]; then
+    echo -e "${YELLOW}======================================${NC}"
+    echo -e "${YELLOW}Theme Sync Script Started${NC}"
     echo -e "${YELLOW}======================================${NC}"
 elif [ "$CONFIG_ONLY" = true ]; then
     echo -e "${YELLOW}======================================${NC}"
@@ -222,7 +238,7 @@ if [ "$DB_PULL" = true ] || [ "$FULL" = true ]; then
     fi
     echo -e "${BLUE}  Database container: Running ✓${NC}"
     echo -e ""
-elif [ "$CONFIG_ONLY" = true ] || [ "$PULL_PLUGINS" = true ] || [ "$FIX_URLS" = true ]; then
+elif [ "$CONFIG_ONLY" = true ] || [ "$PULL_PLUGINS" = true ] || [ "$PULL_THEMES" = true ] || [ "$FIX_URLS" = true ]; then
     # Just check WordPress container for config-only, plugin sync, or fix-urls mode
     echo -e "${GREEN}[1/2] Checking Docker containers...${NC}"
     if ! $DOCKER_COMPOSE ps | grep -q "$WORDPRESS_CONTAINER"; then
@@ -235,8 +251,8 @@ elif [ "$CONFIG_ONLY" = true ] || [ "$PULL_PLUGINS" = true ] || [ "$FIX_URLS" = 
 fi
 
 # Setup WP-CLI in container (only needed for DB operations and config-only)
-if [ "$PULL_PLUGINS" = true ]; then
-    # Skip WP-CLI setup for plugin sync only - we don't need it
+if [ "$PULL_PLUGINS" = true ] || [ "$PULL_THEMES" = true ]; then
+    # Skip WP-CLI setup for plugin/theme sync only - we don't need it
     :
 elif [ "$FIX_URLS" = true ] && [ "$FULL" = false ]; then
     # Skip WP-CLI setup for fix-urls only - will be set up later in the fix-urls section
@@ -507,6 +523,39 @@ if [ "$PULL_PLUGINS" = true ] || [ "$FULL" = true ]; then
     echo -e ""
 fi
 
+# Sync themes from production if requested
+if [ "$PULL_THEMES" = true ] || [ "$FULL" = true ]; then
+    echo -e "${GREEN}[1/1] Syncing themes from production...${NC}"
+
+    echo -e "${BLUE}  Creating temporary directory for theme sync...${NC}"
+    THEMES_TEMP_DIR="/tmp/wp-themes-sync-$$"
+    mkdir -p "$THEMES_TEMP_DIR"
+
+    # Download themes directory from production
+    echo -e "${BLUE}  Downloading themes from production via rsync...${NC}"
+    SYNC_START=$(date +%s)
+    rsync -avz --progress \
+        --exclude='*/cache/*' \
+        --exclude='*/tmp/*' \
+        "$PROD_SSH:$PROD_PATH/wp-content/themes/" \
+        "$THEMES_TEMP_DIR/" 2>&1 | grep -v "sending incremental" || true
+    SYNC_END=$(date +%s)
+    SYNC_TIME=$((SYNC_END - SYNC_START))
+
+    echo -e "${BLUE}  Copying themes to local WordPress container...${NC}"
+    docker cp "$THEMES_TEMP_DIR/." "$(docker-compose ps -q $WORDPRESS_CONTAINER):$CONTAINER_WP_PATH/wp-content/themes/"
+
+    echo -e "${BLUE}  Setting correct permissions...${NC}"
+    $DOCKER_COMPOSE exec -T $WORDPRESS_CONTAINER chown -R www-data:www-data "$CONTAINER_WP_PATH/wp-content/themes" 2>/dev/null || true
+
+    echo -e "${BLUE}  Cleaning up temporary files...${NC}"
+    rm -rf "$THEMES_TEMP_DIR"
+
+    echo -e "${BLUE}  Time taken: ${SYNC_TIME}s${NC}"
+    echo -e "${GREEN}  Themes synced successfully ✓${NC}"
+    echo -e ""
+fi
+
 # Sync media/uploads from production if requested
 if [ "$PULL_UPLOADS" = true ] || [ "$FULL" = true ]; then
     echo -e "${GREEN}Syncing media/uploads from production...${NC}"
@@ -716,7 +765,7 @@ SECONDS=$((TOTAL_TIME % 60))
 
 echo -e "${YELLOW}======================================${NC}"
 if [ "$FULL" = true ]; then
-    echo -e "${GREEN}Full Sync Complete (DB + Plugins + Media + URLs)!${NC}"
+    echo -e "${GREEN}Full Sync Complete (DB + Plugins + Themes + Media + URLs)!${NC}"
 elif [ "$DB_PULL" = true ]; then
     echo -e "${GREEN}Database Pull Complete!${NC}"
 elif [ "$PULL_UPLOADS" = true ]; then
@@ -725,6 +774,8 @@ elif [ "$FIX_URLS" = true ]; then
     echo -e "${GREEN}URL Fix Complete!${NC}"
 elif [ "$PULL_PLUGINS" = true ]; then
     echo -e "${GREEN}Plugin Sync Complete!${NC}"
+elif [ "$PULL_THEMES" = true ]; then
+    echo -e "${GREEN}Theme Sync Complete!${NC}"
 elif [ "$CONFIG_ONLY" = true ]; then
     echo -e "${GREEN}Config Sync Complete!${NC}"
 fi
@@ -739,6 +790,7 @@ if [ "$FULL" = true ]; then
     echo -e "${BLUE}  Database size: ${EXPORT_SIZE}${NC}"
     echo -e "${GREEN}  Database imported ✓${NC}"
     echo -e "${GREEN}  Plugins synced ✓${NC}"
+    echo -e "${GREEN}  Themes synced ✓${NC}"
     echo -e "${GREEN}  Media synced ✓${NC}"
     echo -e "${GREEN}  URLs fixed to local ✓${NC}"
     echo -e "${GREEN}  Security keys synced: ${KEYS_SYNCED}/8${NC}"
@@ -758,6 +810,10 @@ elif [ "$PULL_PLUGINS" = true ]; then
     echo -e "${BLUE}  Production SSH: ${PROD_SSH}${NC}"
     echo -e "${BLUE}  Production Path: ${PROD_PATH}${NC}"
     echo -e "${GREEN}  Plugins synced from production ✓${NC}"
+elif [ "$PULL_THEMES" = true ]; then
+    echo -e "${BLUE}  Production SSH: ${PROD_SSH}${NC}"
+    echo -e "${BLUE}  Production Path: ${PROD_PATH}${NC}"
+    echo -e "${GREEN}  Themes synced from production ✓${NC}"
 elif [ "$DB_PULL" = true ]; then
     if [ -n "$LOCAL_FILE" ]; then
         echo -e "${BLUE}  Source: Local file ($LOCAL_FILE)${NC}"
