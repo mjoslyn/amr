@@ -97,6 +97,7 @@ autoupdater_maintenance_mode_enabled.tmp
 /xmlrpc.php
 /wp-admin
 /wp-includes
+/wp-content/autoptimize_404_handler.php
 /wp-content/index.php
 /wp-content/advanced-scripts/
 /wp-content/themes/*
