@@ -1,9 +1,5 @@
 <?php
-//require get_stylesheet_directory() . '/inc/helpers.php';
-//require get_stylesheet_directory() . '/inc/states-list.php';
-//require get_stylesheet_directory() . '/inc/permissions.php';
-//require get_stylesheet_directory() . '/inc/shortcodes.php';
-//require get_stylesheet_directory() . '/inc/jet-engine.php';
+require get_stylesheet_directory() . '/inc/advanced-scripts.php';
 
 
 

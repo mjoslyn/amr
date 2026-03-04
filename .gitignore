@@ -96,6 +96,7 @@ autoupdater_maintenance_mode_enabled.tmp
 /wp-admin
 /wp-includes
 /wp-content/index.php
+/wp-content/advanced-scripts/
 /wp-content/themes/*
 !/wp-content/themes/hello-elementor-child/
 /wp-content/plugins/index.php
