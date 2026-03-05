@@ -583,7 +583,7 @@ body.landing-camping-pass .form-wrapper .gform_wrapper.gravity-theme textarea {
   border: 2px solid #e0ddd6;
   border-radius: 10px;
   font-family: 'Source Sans 3', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   background: var(--white);
   color: var(--text);
   transition: border-color 0.2s;
