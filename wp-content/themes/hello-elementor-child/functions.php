@@ -12,6 +12,7 @@ add_action('after_setup_theme', function () {
 add_action('wp_enqueue_scripts', function ()
 {
   wp_enqueue_style('amr-child-style', get_stylesheet_directory_uri() . '/dist/css/app.css', array('hello-elementor'));
+  wp_enqueue_style('amr-advanced-scripts', get_stylesheet_directory_uri() . '/inc/advanced-scripts.css', array('amr-child-style'));
   //wp_enqueue_script('amr-script', get_stylesheet_directory_uri() . '/dist/js/app.js');
 
   if (is_page_template('landing-camping-pass.php')) {
@@ -39,14 +40,20 @@ add_action('wp_head', function (){
 
   gtag('config', 'G-S98GJ3WT29');
 </script>
-<!-- VPIXEL --> 
+<!-- VPIXEL -->
 <script type='text/javascript' src='https://pixel.jetmediacorp.com/vpixel.js?ver=1.1.0'></script>
 
 <?php
-
+  include get_stylesheet_directory() . '/inc/advanced-scripts-head.php';
 });
 
 
+
+add_action('wp_body_open', function () {
+  if (is_page(5984)) {
+    include get_stylesheet_directory() . '/inc/advanced-scripts-thank-you.php';
+  }
+});
 
 add_action('wp_body_open', function()
 {
@@ -55,7 +62,7 @@ add_action('wp_body_open', function()
 <script>vpixel.piximage('8092');</script>
 
 <?php
-
+  include get_stylesheet_directory() . '/inc/advanced-scripts-body.php';
 });
 
 
